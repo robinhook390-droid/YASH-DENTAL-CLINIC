@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Dental Clinic | Loni, Ghaziabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #060d1f;
+    --navy2: #0b1731;
+    --blue: #1a6fff;
+    --blue-bright: #3d8bff;
+    --blue-glow: rgba(26,111,255,0.18);
+    --cyan: #00d4ff;
+    --white: #fff;
+    --off: #e8eef8;
+    --muted: #7a8caa;
+    --card: #0d1a30;
+    --border: rgba(26,111,255,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── CURSOR GLOW ── */
+  .cursor-glow {
+    position: fixed;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(26,111,255,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%,-50%);
+    z-index: 0;
+    transition: left .15s ease, top .15s ease;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 200;
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    background: rgba(6,13,31,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo { display: flex; align-items: center; gap: 12px; }
+
+  .logo-mark {
+    width: 42px; height: 42px;
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 16px var(--blue-glow), inset 0 0 16px rgba(26,111,255,0.05);
+    position: relative;
+  }
+
+  .logo-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 800;
+    letter-spacing: 0.5px;
+    color: var(--white);
+  }
+  .logo-text p { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 13px; color: var(--muted);
+    font-weight: 500; letter-spacing: 0.3px;
+    transition: color .2s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--blue);
+    transition: width .3s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--blue); color: #fff;
+    padding: 10px 22px; border-radius: 8px;
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all .2s;
+    box-shadow: 0 0 20px var(--blue-glow);
+  }
+  .nav-cta:hover { background: var(--blue-bright); box-shadow: 0 0 30px rgba(26,111,255,0.35); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    position: relative; overflow: hidden;
+  }
+
+  /* Grid background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(26,111,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,111,255,0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(26,111,255,0.12) 0%, transparent 65%);
+    right: -150px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-content { max-width: 640px; position: relative; z-index: 1; }
+
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border);
+    background: rgba(26,111,255,0.08);
+    padding: 7px 18px; border-radius: 50px;
+    font-size: 12px; color: var(--blue-bright);
+    letter-spacing: 0.5px; font-weight: 500;
+    margin-bottom: 28px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .hero-pill .dot {
+    width: 6px; height: 6px;
+    background: var(--cyan); border-radius: 50%;
+    box-shadow: 0 0 6px var(--cyan);
+    animation: blink 1.4s infinite;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 6.5vw, 76px);
+    font-weight: 800; line-height: 1.05;
+    margin-bottom: 22px;
+    animation: fadeUp .7s ease .1s both;
+  }
+
+  .hero h1 .line2 {
+    display: block;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 16px; color: var(--muted);
+    line-height: 1.8; max-width: 500px;
+    margin-bottom: 38px;
+    animation: fadeUp .7s ease .2s both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp .7s ease .3s both;
+  }
+
+  .btn-primary {
+    background: var(--blue); color: #fff;
+    padding: 14px 30px; border-radius: 10px;
+    text-decoration: none; font-size: 15px; font-weight: 600;
+    transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 24px var(--blue-glow);
+  }
+  .btn-primary:hover { background: var(--blue-bright); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(26,111,255,0.4); }
+
+  .btn-ghost {
+    border: 1px solid var(--border); color: var(--off);
+    padding: 13px 28px; border-radius: 10px;
+    text-decoration: none; font-size: 15px; font-weight: 500;
+    transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: #fff; background: rgba(26,111,255,0.07); }
+
+  .hero-metrics {
+    display: flex; gap: 0; margin-top: 56px;
+    border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    animation: fadeUp .7s ease .4s both;
+    width: fit-content;
+  }
+
+  .metric {
+    padding: 20px 30px; text-align: center;
+    border-right: 1px solid var(--border);
+    background: rgba(26,111,255,0.04);
+  }
+  .metric:last-child { border-right: none; }
+
+  .metric h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 800;
+    color: var(--cyan);
+  }
+  .metric p { font-size: 11px; color: var(--muted); margin-top: 3px; letter-spacing: 0.5px; }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--blue);
+    padding: 14px 0;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex; gap: 40px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: rgba(255,255,255,0.85);
+    flex-shrink: 0;
+  }
+
+  .marquee-item span { color: rgba(255,255,255,0.4); }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SERVICES ── */
+  .services { padding: 100px 5%; position: relative; }
+
+  .sec-tag {
+    text-align: center; font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--blue-bright); margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .sec-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 4.5vw, 50px); font-weight: 800;
+    text-align: center; color: var(--white);
+    margin-bottom: 14px;
+  }
+
+  .sec-sub {
+    text-align: center; color: var(--muted);
+    font-size: 15px; max-width: 480px;
+    margin: 0 auto 60px; line-height: 1.7;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px; max-width: 1100px; margin: 0 auto;
+  }
+
+  .scard {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 30px 26px;
+    transition: all .3s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+
+  .scard::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+
+  .scard:hover {
+    border-color: rgba(26,111,255,0.35);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(26,111,255,0.1);
+  }
+  .scard:hover::before { opacity: 1; }
+
+  .scard-icon {
+    width: 52px; height: 52px;
+    background: rgba(26,111,255,0.1);
+    border: 1px solid rgba(26,111,255,0.2);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+    transition: all .3s;
+  }
+  .scard:hover .scard-icon { background: rgba(26,111,255,0.2); box-shadow: 0 0 20px var(--blue-glow); }
+
+  .scard h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700;
+    margin-bottom: 8px; color: var(--white);
+  }
+  .scard p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* ── RATING SECTION ── */
+  .rating-strip {
+    margin: 0 5%; padding: 40px 48px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+    position: relative; overflow: hidden;
+  }
+
+  .rating-strip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(26,111,255,0.05) 0%, transparent 60%);
+  }
+
+  .rating-left { position: relative; }
+  .rating-left h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 48px; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+  .rating-left h2 span { color: var(--cyan); }
+  .rating-left p { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  .stars { font-size: 26px; margin: 8px 0; letter-spacing: 3px; }
+
+  .rating-features {
+    display: flex; gap: 24px; flex-wrap: wrap; position: relative;
+  }
+
+  .rfeat {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rfeat-icon {
+    width: 42px; height: 42px;
+    background: rgba(26,111,255,0.1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .rfeat p { font-size: 13px; color: var(--muted); }
+  .rfeat strong { display: block; font-size: 14px; color: var(--white); font-weight: 600; }
+
+  /* ── HOURS ── */
+  .hours { padding: 100px 5%; }
+
+  .hours-inner {
+    max-width: 680px; margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+  }
+
+  .hours-head {
+    padding: 22px 32px;
+    background: rgba(26,111,255,0.08);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .hours-head h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700;
+  }
+  .open-tag {
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.2);
+    color: var(--cyan); padding: 4px 14px;
+    border-radius: 50px; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .hrow {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 32px;
+    border-bottom: 1px solid rgba(26,111,255,0.06);
+    font-size: 14px; transition: background .2s;
+  }
+  .hrow:last-child { border-bottom: none; }
+  .hrow:hover { background: rgba(26,111,255,0.04); }
+  .hrow.closed-row { opacity: 0.5; }
+
+  .hday { color: var(--off); font-weight: 500; }
+  .htime { color: var(--blue-bright); font-weight: 600; }
+  .htime.red { color: #ff5c5c; }
+
+  /* ── CONTACT ── */
+  .contact { padding: 100px 5%; }
+
+  .contact-inner {
+    max-width: 920px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+
+  .cleft h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px; font-weight: 800;
+    margin-bottom: 14px; line-height: 1.2;
+  }
+  .cleft > p { font-size: 15px; color: var(--muted); line-height: 1.75; margin-bottom: 36px; }
+
+  .ci {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .ci-icon {
+    width: 44px; height: 44px;
+    background: rgba(26,111,255,0.1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .ci h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 5px; }
+  .ci p, .ci a { font-size: 14px; color: var(--off); font-weight: 500; text-decoration: none; line-height: 1.55; }
+  .ci a:hover { color: var(--blue-bright); }
+
+  .cform {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px 32px;
+  }
+  .cform h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 26px;
+  }
+
+  .fg { margin-bottom: 16px; }
+  .fg label {
+    display: block; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--muted); margin-bottom: 7px; font-weight: 600;
+  }
+  .fg input, .fg select, .fg textarea {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px; color: var(--white);
+    outline: none; transition: border .2s, box-shadow .2s;
+  }
+  .fg input::placeholder, .fg textarea::placeholder { color: rgba(122,140,170,0.6); }
+  .fg input:focus, .fg select:focus, .fg textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,111,255,0.1);
+  }
+  .fg select { color: var(--muted); }
+  .fg select option { background: var(--navy2); color: var(--white); }
+  .fg textarea { resize: vertical; min-height: 90px; }
+
+  .btn-submit {
+    width: 100%; background: var(--blue); color: #fff;
+    border: none; padding: 14px; border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all .2s; margin-top: 6px;
+    box-shadow: 0 4px 20px var(--blue-glow);
+  }
+  .btn-submit:hover { background: var(--blue-bright); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(26,111,255,0.4); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 13px; color: var(--muted);
+  }
+  footer a { color: var(--blue-bright); text-decoration: none; }
+  footer strong { color: var(--white); }
+
+  /* ── WA FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px;
+    width: 58px; height: 58px;
+    background: #25d366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    z-index: 999; transition: transform .2s;
+    animation: fadeUp 1.2s ease both;
+  }
+  .wa-float:hover { transform: scale(1.1); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  .hamburger { display: none; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: block; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .hero-metrics { width: 100%; }
+    .metric { padding: 16px 20px; }
+    .rating-strip { flex-direction: column; text-align: center; }
+    .rating-features { justify-content: center; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 500px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .hero-metrics { flex-direction: column; }
+    .metric { border-right: none; border-bottom: 1px solid var(--border); }
+    .metric:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-mark">🦷</div>
+    <div class="logo-text">
+      <h3>YASH DENTAL CLINIC</h3>
+      <p>Tronica City · Loni · Ghaziabad</p>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#hours">Hours</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:09555127456" class="nav-cta">Book Appointment →</a>
+  <button class="hamburger">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-pill">
+      <div class="dot"></div>
+      ⭐ 4.8 Rating · 52 Reviews on Google
+    </div>
+    <h1>
+      Advanced Dental<br>
+      <span class="line2">Care You Can Trust</span>
+    </h1>
+    <p>Modern dental treatments in a fully equipped, wheelchair-accessible clinic in Tronica City, Loni. Appointments recommended — call us today.</p>
+    <div class="hero-btns">
+      <a href="tel:09555127456" class="btn-primary">📞 Call: 095551 27456</a>
+      <a href="https://wa.me/919555127456" target="_blank" class="btn-ghost">💬 WhatsApp</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric">
+        <h3>4.8</h3>
+        <p>Google Rating</p>
+      </div>
+      <div class="metric">
+        <h3>52+</h3>
+        <p>Happy Reviews</p>
+      </div>
+      <div class="metric">
+        <h3>10 AM</h3>
+        <p>Opens Daily</p>
+      </div>
+      <div class="metric">
+        <h3>♿</h3>
+        <p>Accessible Clinic</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Root Canal <span>✦</span></div>
+    <div class="marquee-item">Teeth Whitening <span>✦</span></div>
+    <div class="marquee-item">Dental Implants <span>✦</span></div>
+    <div class="marquee-item">Braces & Aligners <span>✦</span></div>
+    <div class="marquee-item">Tooth Extraction <span>✦</span></div>
+    <div class="marquee-item">Checkup & Cleaning <span>✦</span></div>
+    <div class="marquee-item">Crowns & Bridges <span>✦</span></div>
+    <div class="marquee-item">Pediatric Dentistry <span>✦</span></div>
+    <!-- Duplicate for loop -->
+    <div class="marquee-item">Root Canal <span>✦</span></div>
+    <div class="marquee-item">Teeth Whitening <span>✦</span></div>
+    <div class="marquee-item">Dental Implants <span>✦</span></div>
+    <div class="marquee-item">Braces & Aligners <span>✦</span></div>
+    <div class="marquee-item">Tooth Extraction <span>✦</span></div>
+    <div class="marquee-item">Checkup & Cleaning <span>✦</span></div>
+    <div class="marquee-item">Crowns & Bridges <span>✦</span></div>
+    <div class="marquee-item">Pediatric Dentistry <span>✦</span></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <p class="sec-tag">What We Offer</p>
+  <h2 class="sec-title">Our Dental Services</h2>
+  <p class="sec-sub">Comprehensive treatments using modern equipment for lasting results and patient comfort.</p>
+
+  <div class="services-grid">
+    <div class="scard reveal">
+      <div class="scard-icon">🔍</div>
+      <h4>Checkup & Cleaning</h4>
+      <p>Thorough oral exams and professional cleaning to prevent problems before they start.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">🦷</div>
+      <h4>Root Canal</h4>
+      <p>Save your natural tooth with our pain-free root canal treatment using modern rotary instruments.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">✨</div>
+      <h4>Teeth Whitening</h4>
+      <p>Professional bleaching for a noticeably brighter, more youthful smile in a single session.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">🦴</div>
+      <h4>Dental Implants</h4>
+      <p>Permanent tooth replacements that look, feel and function exactly like your natural teeth.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">😁</div>
+      <h4>Braces & Aligners</h4>
+      <p>Orthodontic solutions for all ages — traditional metal braces and discreet clear aligners.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">💎</div>
+      <h4>Crowns & Bridges</h4>
+      <p>Restore damaged or missing teeth with precision-crafted, natural-looking dental prosthetics.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">🔧</div>
+      <h4>Tooth Extraction</h4>
+      <p>Safe, quick extractions including impacted wisdom teeth, with minimal discomfort.</p>
+    </div>
+    <div class="scard reveal">
+      <div class="scard-icon">👶</div>
+      <h4>Pediatric Dentistry</h4>
+      <p>Child-friendly dental care in a calm, welcoming environment that kids actually enjoy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RATING STRIP -->
+<div class="rating-strip reveal" id="about">
+  <div class="rating-left">
+    <h2><span>4.8</span> / 5</h2>
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <p>Based on 52 verified Google reviews</p>
+  </div>
+  <div class="rating-features">
+    <div class="rfeat">
+      <div class="rfeat-icon">♿</div>
+      <div>
+        <strong>Fully Accessible</strong>
+        <p>Wheelchair-friendly<br>parking & entrance</p>
+      </div>
+    </div>
+    <div class="rfeat">
+      <div class="rfeat-icon">📅</div>
+      <div>
+        <strong>Appointments</strong>
+        <p>Walk-ins welcome,<br>bookings preferred</p>
+      </div>
+    </div>
+    <div class="rfeat">
+      <div class="rfeat-icon">🏥</div>
+      <div>
+        <strong>Modern Equipment</strong>
+        <p>State-of-the-art<br>dental technology</p>
+      </div>
+    </div>
+    <div class="rfeat">
+      <div class="rfeat-icon">🚻</div>
+      <div>
+        <strong>Full Amenities</strong>
+        <p>Clean restrooms<br>on premises</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOURS -->
+<section class="hours" id="hours">
+  <p class="sec-tag">Clinic Timings</p>
+  <h2 class="sec-title">When To Visit</h2>
+  <p class="sec-sub">Open 6 days a week starting 10 AM. Sunday appointments available on request.</p>
+
+  <div class="hours-inner reveal">
+    <div class="hours-head">
+      <h3>🕙 Opening Hours</h3>
+      <span class="open-tag">Opens 10:00 AM</span>
+    </div>
+    <div class="hrow"><span class="hday">Monday</span><span class="htime">10:00 AM – 9:00 PM</span></div>
+    <div class="hrow"><span class="hday">Tuesday</span><span class="htime">10:00 AM – 9:00 PM</span></div>
+    <div class="hrow"><span class="hday">Wednesday</span><span class="htime">10:00 AM – 9:00 PM</span></div>
+    <div class="hrow"><span class="hday">Thursday</span><span class="htime">10:00 AM – 9:00 PM</span></div>
+    <div class="hrow"><span class="hday">Friday</span><span class="htime">10:00 AM – 9:00 PM</span></div>
+    <div class="hrow"><span class="hday">Saturday</span><span class="htime">10:00 AM – 9:00 PM</span></div>
+    <div class="hrow closed-row"><span class="hday">Sunday</span><span class="htime red">Closed</span></div>
+  </div>
+  <p style="text-align:center; margin-top:16px; font-size:12px; color:var(--muted);">* Please call ahead to confirm your appointment slot.</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="sec-tag">Get In Touch</p>
+  <h2 class="sec-title" style="text-align:center; margin-bottom:52px;">Book An Appointment</h2>
+
+  <div class="contact-inner">
+    <div class="cleft reveal">
+      <h2>Visit Us in Tronica City</h2>
+      <p>Centrally located in Sector C-2, Tronica City, Loni. Easy access from Ghaziabad and surrounding areas.</p>
+
+      <div class="ci">
+        <div class="ci-icon">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p>H.N. 493, C-Block, Sector C-2,<br>Tronica City, Loni,<br>Ghaziabad, UP – 201103</p>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <a href="tel:09555127456">095551 27456</a>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">💬</div>
+        <div>
+          <h4>WhatsApp</h4>
+          <a href="https://wa.me/919555127456" target="_blank">Message us on WhatsApp</a>
+        </div>
+      </div>
+      <div class="ci">
+        <div class="ci-icon">⭐</div>
+        <div>
+          <h4>Google Rating</h4>
+          <p>4.8 Stars · 52 Reviews</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cform reveal">
+      <h3>Request Appointment</h3>
+      <div class="fg">
+        <label>Full Name</label>
+        <input type="text" placeholder="Your full name">
+      </div>
+      <div class="fg">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+91 XXXXX XXXXX">
+      </div>
+      <div class="fg">
+        <label>Treatment</label>
+        <select>
+          <option value="">Select treatment...</option>
+          <option>Checkup & Cleaning</option>
+          <option>Root Canal</option>
+          <option>Teeth Whitening</option>
+          <option>Dental Implants</option>
+          <option>Braces / Aligners</option>
+          <option>Crowns & Bridges</option>
+          <option>Tooth Extraction</option>
+          <option>Pediatric Dentistry</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Preferred Time Slot</label>
+        <select>
+          <option value="">Select time...</option>
+          <option>10 AM – 12 PM</option>
+          <option>12 PM – 2 PM</option>
+          <option>2 PM – 4 PM</option>
+          <option>4 PM – 6 PM</option>
+          <option>6 PM – 9 PM</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Message (Optional)</label>
+        <textarea placeholder="Describe your concern..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="submitForm()">Book Appointment →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <strong>Yash Dental Clinic</strong> · Tronica City, Loni, Ghaziabad – 201103
+  </div>
+  <div>
+    📞 <a href="tel:09555127456">095551 27456</a> &nbsp;·&nbsp; ⭐ 4.8 on Google
+  </div>
+  <div>© 2025 Yash Dental Clinic</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919555127456" class="wa-float" target="_blank" title="WhatsApp">💬</a>
+
+<script>
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function submitForm() {
+    alert('✅ Appointment requested!\nWe will contact you shortly.\n\nOr call: 095551 27456');
+  }
+</script>
+</body>
+</html>
